@@ -1,2 +1,6 @@
-# reading-tools-js
-AcademyPGH Final Project - Javascript Plugins Component
+# reading-tools-js #
+Javascript Plugins for our @AcademyPgh Capstone Project.
+
+
+## Links ##
+- [Back End Repo](https://github.com/SpenserMG/Reading-Assistance)

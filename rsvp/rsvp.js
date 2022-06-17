@@ -1,7 +1,7 @@
 document.getElementById("reader-start").addEventListener("click", startRsvp);
 
 async function startRsvp() {
-    let inputText = "One two three, four five six.";
+    let inputText = document.querySelector("#reader-text").value;
     let readerFrame = document.getElementById("reader-frame");
     let WPM = 30;
     let basePeriod = 500; // this will eventually be calulated from WPM
@@ -23,7 +23,7 @@ async function startRsvp() {
 }
 
 function getSubstrings(word) {
-    const pivot = Math.floor((word.length) * .3);
+    const pivot = Math.ceil((word.length - 1) * .25);
     const left = word.substring(0, pivot);
     const middle = word.substring(pivot, pivot + 1);
     const right = word.substring(pivot + 1);

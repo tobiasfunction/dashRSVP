@@ -1,34 +1,70 @@
-document.getElementById("reader-start").addEventListener("click", startRsvp);
+document.getElementById("reader-init").addEventListener("click", startRsvp);
+
 
 async function startRsvp() {
-    let inputText = document.querySelector("#reader-text").value;
-    let readerFrame = document.getElementById("reader-frame");
-    let WPM = 30;
-    let basePeriod = 500; // this will eventually be calulated from WPM
+    let playing = true
+    document.getElementById("reader-play").onclick = () => playing = true;
+    document.getElementById("reader-pause").onclick = () => playing = false;
 
-    const pre = document.querySelector("#pre-text");
-    const anchor = document.querySelector("#anchor-text");
-    const post = document.querySelector("#post-text");
+    const readerDisplay = document.getElementById("reader-display");
+    let WPM = document.getElementById("reader-wpm").value;
+    let basePeriod = 60000 / WPM; // Convert words-per-minute to milliseconds-per-word
 
-    let textArray = inputText.split(" ");
+    // Build the reader frame and UI
+
+    if (document.getElementById("RSVP-container")) { document.getElementById("RSVP-container").remove(); }
+    const rsvpContainer = document.createElement("div");
+    rsvpContainer.id = "RSVP-container";
+
+    const topBorder = document.createElement("div")
+    topBorder.innerHTML = `
+    <div class="RSVP-left"></div>
+    <div class="RSVP-notch"></div>
+    <div class="RSVP-right"></div>
+    `
+
+    const wordContainer = document.createElement("div");
+    wordContainer.classList.add("RSVP-word")
+
+    const leftSubstr = document.createElement("div");
+    leftSubstr.classList.add("RSVP-left");
+
+    const midSubstr = document.createElement("div");
+    midSubstr.classList.add("RSVP-mid");
+
+    const rightSubstr = document.createElement("div");
+    rightSubstr.classList.add("RSVP-right");
+
+    const controlContainer = document.createElement("div")
+    controlContainer.classList.add("RSVP-controls");
+
+    rsvpContainer.append(topBorder, wordContainer);
+    wordContainer.append(leftSubstr, midSubstr, rightSubstr);
+
+    readerDisplay.append(rsvpContainer);
+
+    const inputText = document.getElementById("reader-text").value;
+    const textArray = inputText.split(" ");
 
     for (const word of textArray) {
-        const substrings = getSubstrings(word);
-        pre.innerText = substrings[0]
-        anchor.innerText = substrings[1]
-        post.innerText = substrings[2]
-
-        await wait(basePeriod);
+        if (playing == true) {
+            const pivot = Math.ceil((word.length - 1) * .25);
+            leftSubstr.innerText = word.substring(0, pivot);
+            midSubstr.innerText = word.substring(pivot, pivot + 1);
+            rightSubstr.innerText = word.substring(pivot + 1);
+            // document.querySelector("#aria-test").innerText = word;
+            await wait(basePeriod);
+        }
     }
+
 }
 
-function getSubstrings(word) {
-    const pivot = Math.ceil((word.length - 1) * .25);
-    const left = word.substring(0, pivot);
-    const middle = word.substring(pivot, pivot + 1);
-    const right = word.substring(pivot + 1);
+function rsvpPlay(params) {
 
-    return [left, middle, right]
+}
+
+function rsvpPause(params) {
+
 }
 
 // Returns a Promise that resolves after "ms" Milliseconds

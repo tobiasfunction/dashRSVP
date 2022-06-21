@@ -59,9 +59,18 @@ async function startRsvp() {
     rsvpContainer.id = "RSVP-container";
 
     const topBorder = document.createElement("div")
+    topBorder.classList.add("border-top", "border-2")
     topBorder.innerHTML = `
     <div class="RSVP-left"></div>
-    <div class="RSVP-notch"></div>
+    <div class="RSVP-notch border-end"></div>
+    <div class="RSVP-right"></div>
+    `
+
+    const bottomBorder = document.createElement("div")
+    bottomBorder.classList.add("border-bottom", "border-2")
+    bottomBorder.innerHTML = `
+    <div class="RSVP-left"></div>
+    <div class="RSVP-notch border-end"></div>
     <div class="RSVP-right"></div>
     `
 
@@ -80,7 +89,7 @@ async function startRsvp() {
     const controlContainer = document.createElement("div")
     controlContainer.classList.add("RSVP-controls");
 
-    rsvpContainer.append(topBorder, wordContainer);
+    rsvpContainer.append(topBorder, wordContainer, bottomBorder);
     wordContainer.append(leftSubstr, midSubstr, rightSubstr);
 
     readerDisplay.append(rsvpContainer);

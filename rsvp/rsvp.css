@@ -1,20 +1,8 @@
-body {
-  font-family: "Atkinson Hyperlegible";
-}
-
 #RSVP-container>div{
   display: flex;
 }
-
-#RSVP-container div {
-  /* border: 1px dotted red; */
-}
-
 .RSVP-word {
-  font-size: 2em;
   min-height: 1.2em;
-  /* margin-top: 2px; */
-  /* margin-bottom: 2px; */
 }
 
 .RSVP-left {
@@ -23,7 +11,7 @@ body {
 }
 
 .RSVP-mid {
-  color: red;
+  color: var(--bs-red);
   text-align: center;
 }
 
@@ -36,24 +24,14 @@ body {
   text-align: center;
 }
 
-.RSVP-border {
-  border-width: 2px;
+.RSVP-notch {
+  height: .5em;
+  /* width: 1px; */
 }
 
-.RSVP-border.RSVP-left {
-  border-right-style: solid;
-}
-
-.RSVP-border.RSVP-right {
-  border-left-style: solid;
-}
-
-.RSVP-border.RSVP-top {
-  border-top-style: solid;
-}
-
-.RSVP-border-bottom {
-  border-bottom-style: solid;
+.RSVP-border, .RSVP-border>div {
+  margin: 0;
+  padding: 0;
 }
 
   #aria-test {

@@ -1,4 +1,4 @@
-#RSVP-container>div{
+#RSVP-container > div {
   display: flex;
 }
 .RSVP-word {
@@ -25,17 +25,18 @@
 }
 
 .RSVP-notch {
-  height: .5em;
+  height: 0.5em;
   /* width: 1px; */
 }
 
-.RSVP-border, .RSVP-border>div {
+.RSVP-border,
+.RSVP-border > div {
   margin: 0;
   padding: 0;
 }
 
-  #aria-test {
-    min-height: 1em;
-    min-width: 1em;
-    border: 1px solid red;
-  }
+#aria-test {
+  min-height: 1em;
+  min-width: 1em;
+  border: 1px solid red;
+}

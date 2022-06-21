@@ -1,6 +1,7 @@
 #RSVP-container > div {
   display: flex;
 }
+
 .RSVP-word {
   min-height: 1.2em;
 }
@@ -33,10 +34,4 @@
 .RSVP-border > div {
   margin: 0;
   padding: 0;
-}
-
-#aria-test {
-  min-height: 1em;
-  min-width: 1em;
-  border: 1px solid red;
 }

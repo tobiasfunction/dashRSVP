@@ -1,5 +1,47 @@
 document.getElementById("reader-init").addEventListener("click", startRsvp);
 
+document.getElementById("reader-play").setAttribute("disabled", "true")
+var stats = 0;
+
+function waitforme(ms) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, ms);
+    })
+}
+
+function pauser() {
+    return new Promise(resolve => {
+        let playbuttonclick = function () {
+            document.getElementById("reader-pause")
+                .removeAttribute("disabled")
+
+            document.getElementById("reader-play")
+                .setAttribute("disabled", "true")
+
+            document.getElementById("reader-play")
+                .removeEventListener("click",
+                    playbuttonclick);
+
+            stats = 0;
+            resolve("resolved");
+        }
+        document.getElementById("reader-play")
+            .addEventListener("click", playbuttonclick)
+    })
+}
+
+document.getElementById("reader-pause")
+    .addEventListener("click", function () {
+
+        stats = 1;
+
+        document.getElementById("reader-pause")
+            .setAttribute("disabled", "true")
+
+        document.getElementById("reader-play")
+            .removeAttribute("disabled")
+
+    })
 
 async function startRsvp() {
     let playing = true
@@ -54,6 +96,9 @@ async function startRsvp() {
             rightSubstr.innerText = word.substring(pivot + 1);
             // document.querySelector("#aria-test").innerText = word;
             await wait(basePeriod);
+            if (stats == 1) {
+                await pauser();
+            }
         }
     }
 

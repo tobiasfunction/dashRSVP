@@ -15,7 +15,7 @@ async function startRsvp() {
     rsvpContainer.id = "RSVP-container";
 
     const topBorder = document.createElement("div")
-    topBorder.classList.add("border-top", "border-2")
+    topBorder.classList.add("RSVP-border", "RSVP-border-top")
     topBorder.innerHTML = `
     <div class="RSVP-left"></div>
     <div class="RSVP-notch"></div>
@@ -23,7 +23,7 @@ async function startRsvp() {
     `
 
     const bottomBorder = document.createElement("div")
-    bottomBorder.classList.add("border-bottom", "border-2")
+    bottomBorder.classList.add("RSVP-border", "RSVP-border-bottom")
     bottomBorder.innerHTML = `
     <div class="RSVP-left"></div>
     <div class="RSVP-notch"></div>

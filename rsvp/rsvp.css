@@ -28,11 +28,21 @@
 
 .RSVP-notch {
   height: 0.5em;
-  border-right: 2px solid var(--bs-secondary);
+  border-right-style: solid;
 }
 
 .RSVP-border,
 .RSVP-border > div {
   margin: 0;
   padding: 0;
+  border-color: var(--bs-secondary);
+  border-width: 2px;
+}
+
+.RSVP-border-top {
+  border-top-style: solid;
+}
+
+.RSVP-border-bottom {
+  border-bottom-style: solid;
 }

@@ -1,5 +1,5 @@
 document.getElementById("reader-init").addEventListener("click", startRsvp);
-document.getElementById("reader-play").setAttribute("disabled", "true")
+document.getElementById("reader-pause").setAttribute("disabled", "true")
 
 function pauser() {
     return new Promise(resolve => {

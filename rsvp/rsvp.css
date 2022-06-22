@@ -3,7 +3,8 @@
 }
 
 .RSVP-word {
-  min-height: 1.2em;
+  line-height: 1em;
+  min-height: 1em;
 }
 
 .RSVP-left {
@@ -27,7 +28,7 @@
 
 .RSVP-notch {
   height: 0.5em;
-  /* width: 1px; */
+  border-right: 2px solid var(--bs-secondary);
 }
 
 .RSVP-border,

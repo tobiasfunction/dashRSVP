@@ -1,3 +1,4 @@
+let stats = 1
 async function startRsvp() {
     let playing = true
     document.getElementById("reader-play").onclick = () => playing = true;
@@ -17,7 +18,7 @@ async function startRsvp() {
     topBorder.classList.add("border-top", "border-2")
     topBorder.innerHTML = `
     <div class="RSVP-left"></div>
-    <div class="RSVP-notch border-end"></div>
+    <div class="RSVP-notch"></div>
     <div class="RSVP-right"></div>
     `
 
@@ -25,7 +26,7 @@ async function startRsvp() {
     bottomBorder.classList.add("border-bottom", "border-2")
     bottomBorder.innerHTML = `
     <div class="RSVP-left"></div>
-    <div class="RSVP-notch border-end"></div>
+    <div class="RSVP-notch"></div>
     <div class="RSVP-right"></div>
     `
 

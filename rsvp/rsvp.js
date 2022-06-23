@@ -2,7 +2,10 @@ const dashRSVP = {
     playing: false,
     position: 0,
     wpm: 200,
-    init: function (readerDisplay) {
+    init: function (readerDisplay, inputText) {
+        if (inputText) setText(inputText);
+
+        if (!readerDisplay.matches('div')) return console.error("dashRSVP: Initialized object must be a [div]")
         this.frame = readerDisplay;
         if (this.frame.hasChildNodes()) this.frame.innerHTML = "";
         if (!!this.container) this.container.remove();
@@ -26,7 +29,6 @@ const dashRSVP = {
             <div class="RSVP-notch"></div>
             <div class="RSVP-right"></div>
             `
-
         const wordContainer = document.createElement("div");
         wordContainer.classList.add("RSVP-word")
 
@@ -44,11 +46,19 @@ const dashRSVP = {
         this.container.append(topBorder, wordContainer, bottomBorder);
         this.frame.append(this.container);
     },
+    setText: function (inputText) {
+        if (typeof (inputText !== 'string')) {
+            console
+        }
+        this.textString = inputText;
+        this.textArray = this.textString.split(/\s+/gm);
+    },
     play: async function (inputText) {
-        if (this.playing || (!inputText && !this.textString)) return;
-        if (!!inputText && (inputText != this.textString)) {
-            this.textString = inputText;
-            this.textArray = this.textString.split(/\s+/gm);
+        if (this.playing) return;
+        if (!this.container) return console.error("dashRSVP: Reader has not been initialized.")
+        if (!inputText && !this.textString) return console.log("dashRSVP: No text to display.");
+        if (!!inputText && (inputText !== this.textString)) {
+            this.setText(inputText)
             this.position = 0;
         }
         this.playing = true
@@ -56,7 +66,7 @@ const dashRSVP = {
         let basePeriod = 60000 / this.wpm; // Convert words-per-minute to milliseconds-per-word
 
         while (this.playing && this.position < this.textArray.length) {
-            word = this.textArray[this.position];
+            const word = this.textArray[this.position];
             const pivot = Math.ceil((word.length - 1) * .25);
 
             this.substrings.left.innerText = word.substring(0, pivot);

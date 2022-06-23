@@ -11,44 +11,32 @@ const dashRSVP = {
         if (!!this.container) this.container.remove();
         this.position = 0;
 
-        this.container = document.createElement("div");
-        this.container.classList.add("RSVP-container");
+        this.container = newDiv("RSVP-container");
 
-        const topBorder = document.createElement("div")
-        topBorder.classList.add("RSVP-border", "RSVP-border-top")
-        // topBorder.innerHTML = `
-        //     <div class="RSVP-left"></div>
-        //     <div class="RSVP-notch"></div>
-        //     <div class="RSVP-right"></div>
-        //     `
+        const topBorder = newDiv("RSVP-border RSVP-border-top");
+        topBorder.append(newDiv("RSVP-left"), newDiv("RSVP-notch"), newDiv("RSVP-right"));
 
-        const bottomBorder = document.createElement("div")
-        bottomBorder.classList.add("RSVP-border", "RSVP-border-bottom")
-        // bottomBorder.innerHTML = `
-        //     <div class="RSVP-left"></div>
-        //     <div class="RSVP-notch"></div>
-        //     <div class="RSVP-right"></div>
-        //     `
+        const wordContainer = newDiv("RSVP-word");
 
-        addNotchDivs(topBorder)
-        addNotchDivs(bottomBorder)
+        const bottomBorder = newDiv("RSVP-border RSVP-border-bottom");
+        bottomBorder.append(newDiv("RSVP-left"), newDiv("RSVP-notch"), newDiv("RSVP-right"));
 
-        const wordContainer = document.createElement("div");
-        wordContainer.classList.add("RSVP-word")
 
         this.substrings = {
-            left: document.createElement("div"),
-            mid: document.createElement("div"),
-            right: document.createElement("div")
+            left: newDiv("RSVP-left"),
+            mid: newDiv("RSVP-mid"),
+            right: newDiv("RSVP-right")
         }
-        this.substrings.left.classList.add("RSVP-left");
-        this.substrings.mid.classList.add("RSVP-mid");
-        this.substrings.right.classList.add("RSVP-right");
-
         wordContainer.append(this.substrings.left, this.substrings.mid, this.substrings.right);
 
         this.container.append(topBorder, wordContainer, bottomBorder);
         this.frame.append(this.container);
+
+        function newDiv(className) {
+            let tempDiv = document.createElement("div");
+            tempDiv.className = className;
+            return tempDiv;
+        }
     },
     setText: function (inputText) {
         if (typeof (inputText !== 'string')) {
@@ -86,7 +74,10 @@ const dashRSVP = {
         }
     },
     pause: function () { this.playing = false; },
-    restart: function () { this.position = 0 },
+    restart: function () {
+        this.position = 0;
+        this.playing = false;
+    },
     reset: function () {
         this.playing = false;
         this.textString = null;

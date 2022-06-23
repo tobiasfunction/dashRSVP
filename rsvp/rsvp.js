@@ -13,19 +13,22 @@ const dashRSVP = {
 
         const topBorder = document.createElement("div")
         topBorder.classList.add("RSVP-border", "RSVP-border-top")
-        topBorder.innerHTML = `
-            <div class="RSVP-left"></div>
-            <div class="RSVP-notch"></div>
-            <div class="RSVP-right"></div>
-            `
+        // topBorder.innerHTML = `
+        //     <div class="RSVP-left"></div>
+        //     <div class="RSVP-notch"></div>
+        //     <div class="RSVP-right"></div>
+        //     `
 
         const bottomBorder = document.createElement("div")
         bottomBorder.classList.add("RSVP-border", "RSVP-border-bottom")
-        bottomBorder.innerHTML = `
-            <div class="RSVP-left"></div>
-            <div class="RSVP-notch"></div>
-            <div class="RSVP-right"></div>
-            `
+        // bottomBorder.innerHTML = `
+        //     <div class="RSVP-left"></div>
+        //     <div class="RSVP-notch"></div>
+        //     <div class="RSVP-right"></div>
+        //     `
+
+        addNotchDivs(topBorder)
+        addNotchDivs(bottomBorder)
 
         const wordContainer = document.createElement("div");
         wordContainer.classList.add("RSVP-word")
@@ -81,4 +84,19 @@ const dashRSVP = {
     },
     remove: function () { this.container.remove(); },
     wait: ms => new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function addNotchDivs(parent) {
+    const leftDiv = document.createElement("div")
+    leftDiv.classList.add("RSVP-left")
+    const notchDiv = document.createElement("div")
+    notchDiv.classList.add("RSVP-notch")
+    const rightDiv = document.createElement("div")
+    rightDiv.classList.add("RSVP-right")
+
+    parent.append(
+        leftDiv,
+        notchDiv,
+        rightDiv
+    )
 }

@@ -4,11 +4,12 @@ const dashRSVP = {
     wpm: 200,
     init: function (readerDisplay, inputText) {
         if (inputText) setText(inputText);
-
         if (!readerDisplay.matches('div')) return console.error("dashRSVP: Initialized object must be a [div]")
+
         this.frame = readerDisplay;
         if (this.frame.hasChildNodes()) this.frame.innerHTML = "";
         if (!!this.container) this.container.remove();
+        this.playing = false;
         this.position = 0;
 
         this.container = newDiv("RSVP-container");
@@ -40,7 +41,6 @@ const dashRSVP = {
     },
     setText: function (inputText) {
         if (typeof (inputText !== 'string')) {
-            console
         }
         this.textString = inputText;
         this.textArray = this.textString.split(/\s+/gm);
@@ -73,7 +73,7 @@ const dashRSVP = {
             this.position = 0;
         }
     },
-    pause: function () { this.playing = false; },
+    pause: function () { this.playing = false },
     restart: function () {
         this.position = 0;
         this.playing = false;
@@ -86,19 +86,4 @@ const dashRSVP = {
     },
     remove: function () { this.container.remove(); },
     wait: ms => new Promise(resolve => setTimeout(resolve, ms))
-}
-
-function addNotchDivs(parent) {
-    const leftDiv = document.createElement("div")
-    leftDiv.classList.add("RSVP-left")
-    const notchDiv = document.createElement("div")
-    notchDiv.classList.add("RSVP-notch")
-    const rightDiv = document.createElement("div")
-    rightDiv.classList.add("RSVP-right")
-
-    parent.append(
-        leftDiv,
-        notchDiv,
-        rightDiv
-    )
 }

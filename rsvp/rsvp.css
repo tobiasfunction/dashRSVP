@@ -18,7 +18,7 @@
 }
 
 .RSVP-mid {
-  color: var(--bs-red);
+  color: var(--red);
   text-align: center;
 }
 
@@ -40,7 +40,7 @@
 .RSVP-border > div {
   margin: 0;
   padding: 0;
-  border-color: var(--bs-secondary);
+  border-color: var(--secondary);
   border-width: 2px;
 }
 

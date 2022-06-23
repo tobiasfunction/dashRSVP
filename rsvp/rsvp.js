@@ -48,7 +48,7 @@ const dashRSVP = {
         if (this.playing || (!inputText && !this.textString)) return;
         if (!!inputText && (inputText != this.textString)) {
             this.textString = inputText;
-            this.textArray = this.textString.split(" ");
+            this.textArray = this.textString.split(/\s+/gm);
             this.position = 0;
         }
         console.log("starting!")

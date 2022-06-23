@@ -3,8 +3,9 @@ const dashRSVP = {
     position: 0,
     wpm: 200,
     init: function (readerDisplay) {
-        if (!!this.frame) this.frame.innerHTML = "";
         this.frame = readerDisplay;
+        if (this.frame.hasChildNodes()) this.frame.innerHTML = "";
+        if (!!this.container) this.container.remove();
         this.position = 0;
 
         this.container = document.createElement("div");
@@ -45,7 +46,7 @@ const dashRSVP = {
     },
     play: async function (inputText) {
         if (this.playing || (!inputText && !this.textString)) return;
-        if (inputText && (inputText != this.textString)) {
+        if (!!inputText && (inputText != this.textString)) {
             this.textString = inputText;
             this.textArray = this.textString.split(" ");
             this.position = 0;

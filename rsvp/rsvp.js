@@ -51,8 +51,6 @@ const dashRSVP = {
             this.textArray = this.textString.split(/\s+/gm);
             this.position = 0;
         }
-        console.log("starting!")
-        console.log(this.frame);
         this.playing = true
 
         let basePeriod = 60000 / this.wpm; // Convert words-per-minute to milliseconds-per-word

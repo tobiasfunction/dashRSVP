@@ -1,73 +1,85 @@
-let stats = 1
-async function startRsvp() {
-    let playing = true
-    document.getElementById("reader-play").onclick = () => playing = true;
-    document.getElementById("reader-pause").onclick = () => playing = false;
+const dashRSVP = {
+    playing: false,
+    position: 0,
+    wpm: 200,
+    init: function (readerDisplay) {
+        if (!!this.frame) this.frame.innerHTML = "";
+        this.frame = readerDisplay;
+        this.position = 0;
 
-    const readerDisplay = document.getElementById("reader-display");
-    let WPM = document.getElementById("reader-wpm").value;
-    let basePeriod = 60000 / WPM; // Convert words-per-minute to milliseconds-per-word
+        this.container = document.createElement("div");
+        this.container.classList.add("RSVP-container");
 
-    // Build the reader frame and UI
+        const topBorder = document.createElement("div")
+        topBorder.classList.add("RSVP-border", "RSVP-border-top")
+        topBorder.innerHTML = `
+            <div class="RSVP-left"></div>
+            <div class="RSVP-notch"></div>
+            <div class="RSVP-right"></div>
+            `
 
-    if (document.getElementById("RSVP-container")) { document.getElementById("RSVP-container").remove(); }
-    const rsvpContainer = document.createElement("div");
-    rsvpContainer.id = "RSVP-container";
+        const bottomBorder = document.createElement("div")
+        bottomBorder.classList.add("RSVP-border", "RSVP-border-bottom")
+        bottomBorder.innerHTML = `
+            <div class="RSVP-left"></div>
+            <div class="RSVP-notch"></div>
+            <div class="RSVP-right"></div>
+            `
 
-    const topBorder = document.createElement("div")
-    topBorder.classList.add("RSVP-border", "RSVP-border-top")
-    topBorder.innerHTML = `
-    <div class="RSVP-left"></div>
-    <div class="RSVP-notch"></div>
-    <div class="RSVP-right"></div>
-    `
+        const wordContainer = document.createElement("div");
+        wordContainer.classList.add("RSVP-word")
 
-    const bottomBorder = document.createElement("div")
-    bottomBorder.classList.add("RSVP-border", "RSVP-border-bottom")
-    bottomBorder.innerHTML = `
-    <div class="RSVP-left"></div>
-    <div class="RSVP-notch"></div>
-    <div class="RSVP-right"></div>
-    `
-
-    const wordContainer = document.createElement("div");
-    wordContainer.classList.add("RSVP-word")
-
-    const leftSubstr = document.createElement("div");
-    leftSubstr.classList.add("RSVP-left");
-
-    const midSubstr = document.createElement("div");
-    midSubstr.classList.add("RSVP-mid");
-
-    const rightSubstr = document.createElement("div");
-    rightSubstr.classList.add("RSVP-right");
-
-    const controlContainer = document.createElement("div")
-    controlContainer.classList.add("RSVP-controls");
-
-    rsvpContainer.append(topBorder, wordContainer, bottomBorder);
-    wordContainer.append(leftSubstr, midSubstr, rightSubstr);
-
-    readerDisplay.append(rsvpContainer);
-
-    const inputText = document.getElementById("reader-text").value;
-    const textArray = inputText.split(" ");
-
-    for (const word of textArray) {
-        if (playing == true) {
-            const pivot = Math.ceil((word.length - 1) * .25);
-            leftSubstr.innerText = word.substring(0, pivot);
-            midSubstr.innerText = word.substring(pivot, pivot + 1);
-            rightSubstr.innerText = word.substring(pivot + 1);
-            // document.querySelector("#aria-test").innerText = word;
-            await wait(basePeriod);
-            if (stats == 1) {
-                await pauser();
-            }
+        this.substrings = {
+            left: document.createElement("div"),
+            mid: document.createElement("div"),
+            right: document.createElement("div")
         }
-    }
+        this.substrings.left.classList.add("RSVP-left");
+        this.substrings.mid.classList.add("RSVP-mid");
+        this.substrings.right.classList.add("RSVP-right");
 
+        wordContainer.append(this.substrings.left, this.substrings.mid, this.substrings.right);
+
+        this.container.append(topBorder, wordContainer, bottomBorder);
+        this.frame.append(this.container);
+    },
+    play: async function (inputText) {
+        if (this.playing || (!inputText && !this.textString)) return;
+        if (inputText && (inputText != this.textString)) {
+            this.textString = inputText;
+            this.textArray = this.textString.split(" ");
+            this.position = 0;
+        }
+        console.log("starting!")
+        console.log(this.frame);
+        this.playing = true
+
+        let basePeriod = 60000 / this.wpm; // Convert words-per-minute to milliseconds-per-word
+
+        while (this.playing && this.position < this.textArray.length) {
+            word = this.textArray[this.position];
+            const pivot = Math.ceil((word.length - 1) * .25);
+
+            this.substrings.left.innerText = word.substring(0, pivot);
+            this.substrings.mid.innerText = word.substring(pivot, pivot + 1);
+            this.substrings.right.innerText = word.substring(pivot + 1);
+
+            await this.wait(basePeriod);
+            this.position++;
+        }
+        if (this.position >= this.textArray.length) {
+            this.playing = false;
+            this.position = 0;
+        }
+    },
+    pause: function () { this.playing = false; },
+    restart: function () { this.position = 0 },
+    reset: function () {
+        this.playing = false;
+        this.textString = null;
+        this.textArray = null;
+        this.position = 0;
+    },
+    remove: function () { this.container.remove(); },
+    wait: ms => new Promise(resolve => setTimeout(resolve, ms))
 }
-
-// Returns a Promise that resolves after "ms" Milliseconds
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms))

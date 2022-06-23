@@ -1,4 +1,9 @@
-#RSVP-container > div {
+.RSVP-container {
+  height: 100%;
+  width: 100%;
+}
+
+.RSVP-container > div {
   display: flex;
 }
 

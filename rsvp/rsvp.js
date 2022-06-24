@@ -55,7 +55,16 @@ const dashRSVP = {
     if (typeof (inputText !== "string")) {
     }
     this.textString = inputText;
-    this.textArray = this.textString.split(/\s+/gm);
+
+    // Current delimeters:
+    // - destroys one or more spaces/tabs
+    // - after one or more hyphens
+    // - before and after a newline, destroying other newlines in sequence
+    // https://regex101.com/r/G7PwQz/1
+
+    this.textArray = this.textString.split(
+      /[ \t]+|(?<=\-+)(?!\-)|(?<=\n)\n*|(?=\n)/gm
+    );
   },
   play: async function (inputText) {
     if (this.playing) return;
@@ -70,9 +79,11 @@ const dashRSVP = {
     this.playing = true;
 
     let basePeriod = 60000 / this.wpm; // Convert words-per-minute to milliseconds-per-word
+    console.log(this.textArray);
 
     while (this.playing && this.position < this.textArray.length) {
-      const word = this.textArray[this.position];
+      let word = this.textArray[this.position];
+      if (!word) word = " ";
       const pivot = Math.ceil((word.length - 1) * 0.25);
 
       this.substrings.left.innerText = word.substring(0, pivot);

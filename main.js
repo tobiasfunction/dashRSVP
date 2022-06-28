@@ -5,8 +5,12 @@ const initButton = document.getElementById("reader-init");
 const playButton = document.getElementById("reader-play");
 const pauseButton = document.getElementById("reader-pause");
 
+playButton.setAttribute("disabled", "true");
+pauseButton.setAttribute("disabled", "true");
+
 initButton.addEventListener("click", function () {
   dashRSVP.init(displayElement);
+  initButton.setAttribute("disabled", "true");
   readerPause();
 });
 

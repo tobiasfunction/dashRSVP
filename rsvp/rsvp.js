@@ -60,10 +60,10 @@ const dashRSVP = {
     // - destroys one or more spaces/tabs
     // - after one or more hyphens
     // - before and after a newline, destroying other newlines in sequence
-    // https://regex101.com/r/G7PwQz/1
+    // https://regex101.com/r/G7PwQz/
 
     this.textArray = this.textString.split(
-      /[ \t]+|(?<=\-+)(?!\-)|(?<=\n)\n*|(?=\n)/gm
+      /[ \t]+|(?<=\-+)(?!\-)|(?<=[\n\r])[\n\r]*|(?=[\n\r])/gm
     );
   },
   play: async function (inputText) {
@@ -105,11 +105,14 @@ const dashRSVP = {
     this.position = 0;
     this.playing = false;
   },
-  reset: function () {
+  clearAll: function () {
     this.playing = false;
+    this.position = 0;
     this.textString = null;
     this.textArray = null;
-    this.position = 0;
+    this.frame = null;
+    this.container = null;
+    this.substrings = null;
   },
   remove: function () {
     this.container.remove();

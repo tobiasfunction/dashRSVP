@@ -6,29 +6,69 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+
   <link rel="stylesheet" href="rsvp.css" />
   <link rel="stylesheet" href="demo.css" />
+
+  <style>
+    label {
+      margin-top: 1em;
+    }
+
+    footer {
+      margin-top: 2em;
+    }
+
+    .reader-controls {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .reader-controls>div {
+      text-align: center;
+    }
+
+    .reader-display-container {
+      padding: 0;
+      margin-bottom: 0.5em;
+      margin-top: 0.5em;
+      min-height: 3.5em;
+    }
+  </style>
 
   <title>rdashRSVP Demo</title>
 </head>
 
 <body>
-  <header>
+  <Main>
     <h1>dashRSVP Demo</h1>
-  </header>
 
-  <div class="container">
+    <label for="reader-text">Reader Text</label>
     <textarea id="reader-text"
-      class="form-control">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</textarea>
-    <input id="reader-wpm" type="number" value="200" step="50" class="form-control" />
-    <button id="reader-init">init</button>
-    <button id="reader-play">play</button>
-    <button id="reader-pause">pause</button>
+      rows="6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</textarea>
 
-    <div id="reader-display"></div>
+    <label for="reader-display">Reader Display</label>
+
+    <div class="reader-display-container">
+      <div id="reader-display"></div>
+    </div>
+
+    <section class="reader-controls">
+      <div>
+        <label for="reader-wpm">Speed (WPM)</label>
+        <input id="reader-wpm" type="number" value="200" step="50" />
+      </div>
+      <div>
+        <label for="reader-controls">Controls</label>
+        <div id="reader-controls">
+          <button id="reader-init">Initialize</button>
+          <button id="reader-play">Play</button>
+          <button id="reader-pause">Pause</button>
+        </div>
+      </div>
+    </section>
+
 
     <footer>
       <p>This is a demo page. More documentation and information is being written.</p>
@@ -38,7 +78,11 @@
           @tobiasfunction/dashRSVP
         </a>
       </p>
+      <p>
+        Styled using <a href="https://watercss.kognise.dev">Water.css</a>.
+      </p>
     </footer>
+  </Main>
 </body>
 
 <script src="demo.js"></script>

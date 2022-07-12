@@ -1,13 +1,12 @@
 # dashRSVP
 
-Javascript Plugin for our [@AcademyPgh](https://github.com/AcademyPgh) Capstone Project.
+Javascript plugin created as part of a Capstone project for [@AcademyPgh](https://github.com/AcademyPgh) Session 14.
 
 ## Usage
 
 ### Set Up
 
-- Where to get and put the files
-- Overview of theory of operation
+`rsvp.css` and `rsvp.js`
 
 ### Methods
 

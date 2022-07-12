@@ -78,7 +78,6 @@ const dashRSVP = {
     }
     this.playing = true;
 
-    let basePeriod = 60000 / this.wpm; // Convert words-per-minute to milliseconds-per-word
     console.log(this.textArray);
 
     while (this.playing && this.position < this.textArray.length) {
@@ -90,7 +89,7 @@ const dashRSVP = {
       this.substrings.mid.innerText = word.substring(pivot, pivot + 1);
       this.substrings.right.innerText = word.substring(pivot + 1);
 
-      await this.wait(basePeriod);
+      await this.wait(60000 / this.wpm); // Convert words-per-minute to milliseconds-per-word
       this.position++;
     }
     if (this.position >= this.textArray.length) {
@@ -113,6 +112,9 @@ const dashRSVP = {
     this.frame = null;
     this.container = null;
     this.substrings = null;
+  },
+  setWPM: function (newWPM) {
+    this.wpm = newWPM;
   },
   remove: function () {
     this.container.remove();

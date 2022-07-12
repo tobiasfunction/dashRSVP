@@ -5,6 +5,8 @@ const initButton = document.getElementById("reader-init");
 const playButton = document.getElementById("reader-play");
 const pauseButton = document.getElementById("reader-pause");
 
+const wpmInput = document.getElementById("reader-wpm");
+
 playButton.setAttribute("disabled", "true");
 pauseButton.setAttribute("disabled", "true");
 
@@ -24,6 +26,10 @@ playButton.addEventListener("click", async function () {
 pauseButton.addEventListener("click", function () {
   dashRSVP.pause();
   readerPause();
+});
+
+wpmInput.addEventListener("change", function (event) {
+  dashRSVP.setWPM(event.target.value);
 });
 
 function readerPause() {

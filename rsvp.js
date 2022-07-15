@@ -4,6 +4,8 @@ const dashRSVP = {
   wpm: 200,
   init: function (readerDisplay, inputText) {
     if (inputText) setText(inputText);
+    if (typeof readerDisplay === "string")
+      readerDisplay = document.getElementById(readerDisplay);
     if (!readerDisplay.matches("div"))
       return console.error("dashRSVP: Initialized object must be a [div]");
 
@@ -67,18 +69,25 @@ const dashRSVP = {
     );
   },
   play: async function (inputText) {
+    // If the reader is already playing, don't change anything
     if (this.playing) return;
-    if (!this.container)
-      return console.error("dashRSVP: Reader has not been initialized.");
-    if (!inputText && !this.textString)
-      return console.log("dashRSVP: No text to display.");
-    if (!!inputText && inputText !== this.textString) {
+
+    // Check that the code has everything necessary to play
+    let errorCount = 0;
+
+    if (!this.container) {
+      console.error("dashRSVP: Reader has not been initialized.");
+      errorCount++;
+    }
+    if (!inputText && !this.textString) {
+      console.error("dashRSVP: No text to display.");
+      errorCount++;
+    }
+    if (inputText && inputText !== this.textString) {
       this.setText(inputText);
       this.position = 0;
     }
     this.playing = true;
-
-    console.log(this.textArray);
 
     while (this.playing && this.position < this.textArray.length) {
       let word = this.textArray[this.position];
